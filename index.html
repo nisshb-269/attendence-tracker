@@ -1,16 +1,25 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Attendance Tracker</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="style.css?v=20">
 </head>
 <body>
 
-<div class="container">
-    <h1>📊 Attendance Tracker</h1>
-    <p class="subtitle">Track your college attendance smartly</p>
+<header class="header">
+    <h1>📘 Attendance Tracker</h1>
+    <p>Simple • Clean • Reliable</p>
+</header>
+
+<main class="container">
+
+    <div class="summary-card">
+        <h2>Overall Attendance</h2>
+        <div id="overallPercent">0%</div>
+    </div>
 
     <div class="card">
         <table>
@@ -23,14 +32,15 @@
                 </tr>
             </thead>
             <tbody id="tableBody">
-                <!-- Rows are loaded from localStorage -->
+                <!-- rows loaded from localStorage -->
             </tbody>
         </table>
 
         <button class="add-btn" onclick="addRow()">➕ Add Subject</button>
     </div>
-</div>
 
-<script src="script.js"></script>
+</main>
+
+<script src="script.js?v=20"></script>
 </body>
 </html>
