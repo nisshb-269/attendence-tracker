@@ -2,15 +2,36 @@ function calculate(element) {
     const row = element.closest("tr");
     const conducted = Number(row.children[1].children[0].value);
     const attended = Number(row.children[2].children[0].value);
+
     const percentCell = row.children[3];
+    const adviceCell = row.children[4];
 
     if (!conducted || conducted === 0) {
         percentCell.innerText = "0%";
         percentCell.className = "percent bad";
+        adviceCell.innerText = "-";
+        return;
+    }
+
+    const percent = Math.round((attended / conducted) * 100);
+    percentCell.innerText = percent + "%";
+    percentCell.className = "percent " + (percent >= 75 ? "good" : "bad");
+
+    // -------- ATTENDANCE HELPER --------
+    if (percent >= 75) {
+        let skip = 0;
+        while (((attended) / (conducted + skip + 1)) * 100 >= 75) {
+            skip++;
+        }
+        adviceCell.innerText = `You can skip ${skip} class(es)`;
+        adviceCell.style.color = "#16a34a";
     } else {
-        const percent = Math.round((attended / conducted) * 100);
-        percentCell.innerText = percent + "%";
-        percentCell.className = "percent " + (percent >= 75 ? "good" : "bad");
+        let need = 0;
+        while (((attended + need) / (conducted + need)) * 100 < 75) {
+            need++;
+        }
+        adviceCell.innerText = `Attend next ${need} class(es)`;
+        adviceCell.style.color = "#dc2626";
     }
 
     updateOverall();
@@ -26,6 +47,7 @@ function addRow() {
         <td><input type="number" oninput="calculate(this)"></td>
         <td><input type="number" oninput="calculate(this)"></td>
         <td class="percent">0%</td>
+        <td>-</td>
     `;
 
     saveData();
@@ -33,27 +55,26 @@ function addRow() {
 
 function updateOverall() {
     const rows = document.querySelectorAll("#tableBody tr");
-    let totalConducted = 0;
-    let totalAttended = 0;
+    let totalC = 0, totalA = 0;
 
     rows.forEach(row => {
-        totalConducted += Number(row.children[1].children[0].value || 0);
-        totalAttended += Number(row.children[2].children[0].value || 0);
+        totalC += Number(row.children[1].children[0].value || 0);
+        totalA += Number(row.children[2].children[0].value || 0);
     });
 
     const overall = document.getElementById("overallPercent");
 
-    if (totalConducted === 0) {
+    if (totalC === 0) {
         overall.innerText = "0%";
         overall.style.color = "#dc2626";
     } else {
-        const percent = Math.round((totalAttended / totalConducted) * 100);
+        const percent = Math.round((totalA / totalC) * 100);
         overall.innerText = percent + "%";
         overall.style.color = percent >= 75 ? "#16a34a" : "#dc2626";
     }
 }
 
-/* ---------- LOCAL STORAGE ---------- */
+/* -------- LOCAL STORAGE -------- */
 
 function saveData() {
     const rows = document.querySelectorAll("#tableBody tr");
@@ -88,6 +109,7 @@ function loadData() {
             <td><input type="number" value="${item.conducted}" oninput="calculate(this)"></td>
             <td><input type="number" value="${item.attended}" oninput="calculate(this)"></td>
             <td class="percent">0%</td>
+            <td>-</td>
         `;
         calculate(row.children[1].children[0]);
     });
