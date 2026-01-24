@@ -1,10 +1,10 @@
 function calculate(element) {
     const row = element.closest("tr");
-    const conducted = row.children[1].children[0].value;
-    const attended = row.children[2].children[0].value;
+    const conducted = Number(row.children[1].children[0].value);
+    const attended = Number(row.children[2].children[0].value);
     const percentCell = row.children[3];
 
-    if (!conducted || conducted == 0) {
+    if (!conducted || conducted === 0) {
         percentCell.innerText = "0%";
         percentCell.className = "percent bad";
     } else {
@@ -13,6 +13,7 @@ function calculate(element) {
         percentCell.className = "percent " + (percent >= 75 ? "good" : "bad");
     }
 
+    updateOverall();
     saveData();
 }
 
@@ -28,6 +29,28 @@ function addRow() {
     `;
 
     saveData();
+}
+
+function updateOverall() {
+    const rows = document.querySelectorAll("#tableBody tr");
+    let totalConducted = 0;
+    let totalAttended = 0;
+
+    rows.forEach(row => {
+        totalConducted += Number(row.children[1].children[0].value || 0);
+        totalAttended += Number(row.children[2].children[0].value || 0);
+    });
+
+    const overall = document.getElementById("overallPercent");
+
+    if (totalConducted === 0) {
+        overall.innerText = "0%";
+        overall.style.color = "#dc2626";
+    } else {
+        const percent = Math.round((totalAttended / totalConducted) * 100);
+        overall.innerText = percent + "%";
+        overall.style.color = percent >= 75 ? "#16a34a" : "#dc2626";
+    }
 }
 
 /* ---------- LOCAL STORAGE ---------- */
@@ -71,4 +94,3 @@ function loadData() {
 }
 
 window.onload = loadData;
-
