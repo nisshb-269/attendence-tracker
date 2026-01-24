@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Attendance Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h2>📘 College Attendance Tracker</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Subject</th>
+            <th>Conducted</th>
+            <th>Attended</th>
+            <th>%</th>
+        </tr>
+    </thead>
+    <tbody id="tableBody">
+        <tr>
+            <td>DMS</td>
+            <td><input type="number" value="9" oninput="calculate(this)"></td>
+            <td><input type="number" value="9" oninput="calculate(this)"></td>
+            <td class="percent">100%</td>
+        </tr>
+        <tr>
+            <td>COA</td>
+            <td><input type="number" value="9" oninput="calculate(this)"></td>
+            <td><input type="number" value="7" oninput="calculate(this)"></td>
+            <td class="percent">78%</td>
+        </tr>
+        <tr>
+            <td>DSA</td>
+            <td><input type="number" value="11" oninput="calculate(this)"></td>
+            <td><input type="number" value="11" oninput="calculate(this)"></td>
+            <td class="percent">100%</td>
+        </tr>
+    </tbody>
+</table>
+
+<button onclick="addRow()">➕ Add Subject</button>
+
+<script src="script.js"></script>
+</body>
+</html>
