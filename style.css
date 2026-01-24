@@ -1,34 +1,67 @@
-body {
-    font-family: Arial, sans-serif;
-    background: #f4f6f8;
-    padding: 30px;
+
+* {
+    box-sizing: border-box;
 }
 
-h2 {
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 95%;
+    max-width: 900px;
+    color: white;
     text-align: center;
 }
 
-table {
-    width: 80%;
-    margin: auto;
-    border-collapse: collapse;
+h1 {
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    opacity: 0.9;
+    margin-bottom: 25px;
+}
+
+.card {
     background: white;
+    color: #333;
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
 }
 
 th {
-    background: #1976d2;
-    color: white;
+    background: #f3f4f6;
     padding: 12px;
+    font-weight: 600;
 }
 
 td {
     padding: 10px;
-    text-align: center;
 }
 
 input {
-    width: 70px;
-    padding: 5px;
+    width: 100%;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    outline: none;
+}
+
+input:focus {
+    border-color: #667eea;
 }
 
 .percent {
@@ -36,24 +69,30 @@ input {
 }
 
 .good {
-    color: green;
+    color: #16a34a;
 }
 
 .bad {
-    color: red;
+    color: #dc2626;
 }
 
-button {
-    display: block;
-    margin: 20px auto;
-    padding: 10px 20px;
-    background: #1976d2;
+.add-btn {
+    margin-top: 20px;
+    background: #667eea;
     color: white;
     border: none;
-    cursor: pointer;
+    padding: 12px 20px;
+    border-radius: 10px;
     font-size: 16px;
+    cursor: pointer;
 }
 
-button:hover {
-    background: #0d47a1;
+.add-btn:hover {
+    background: #5a67d8;
+}
+
+@media (max-width: 600px) {
+    th, td {
+        font-size: 14px;
+    }
 }
